@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Commands\ApartmentDelete\**" />
+    <Compile Remove="Commands\ApartmentEdit\**" />
+    <Compile Remove="Commands\ApartmentInsert\**" />
+    <Compile Remove="Commands\ApartmentListAll\**" />
+    <Compile Remove="Commands\PersonDelete\**" />
+    <Compile Remove="Commands\PersonEdit\**" />
+    <Compile Remove="Commands\PersonInsert\**" />
+    <Compile Remove="Commands\PersonListAll\**" />
+    <EmbeddedResource Remove="Commands\ApartmentDelete\**" />
+    <EmbeddedResource Remove="Commands\ApartmentEdit\**" />
+    <EmbeddedResource Remove="Commands\ApartmentInsert\**" />
+    <EmbeddedResource Remove="Commands\ApartmentListAll\**" />
+    <EmbeddedResource Remove="Commands\PersonDelete\**" />
+    <EmbeddedResource Remove="Commands\PersonEdit\**" />
+    <EmbeddedResource Remove="Commands\PersonInsert\**" />
+    <EmbeddedResource Remove="Commands\PersonListAll\**" />
+    <None Remove="Commands\ApartmentDelete\**" />
+    <None Remove="Commands\ApartmentEdit\**" />
+    <None Remove="Commands\ApartmentInsert\**" />
+    <None Remove="Commands\ApartmentListAll\**" />
+    <None Remove="Commands\PersonDelete\**" />
+    <None Remove="Commands\PersonEdit\**" />
+    <None Remove="Commands\PersonInsert\**" />
+    <None Remove="Commands\PersonListAll\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Avanade.Challenge.MyCondominium.Infra.CrossCutting\Avanade.Challenge.MyCondominium.Infra.CrossCutting.csproj" />
+  </ItemGroup>
+
+</Project>
