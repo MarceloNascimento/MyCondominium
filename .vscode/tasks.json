@@ -1,0 +1,30 @@
+{
+    "version": "2.0.0",
+    "tasks": [               
+        {
+            "label": "buildapi-mycondominium",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Avanade.Challenge.MyCondominium.API/Avanade.Challenge.MyCondominium.API.csproj"
+            ],
+            "problemMatcher": "$msCompile",
+            "dependsOn": [
+                "cleanapi-Etf"
+            ]
+        },
+        {
+            "label": "test",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "/p:CollectCoverage=true",
+                "/p:CoverletOutputFormat=lcov",
+                "/p:CoverletOutput=../../../coverage/lcov.info"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

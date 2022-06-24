@@ -6,7 +6,7 @@ namespace Avanade.Challenge.MyCondominium.Domain.Repositories
     {
         Task<Apartment> Insert(Apartment apartment);
         Task<Apartment> Update(Apartment apartment);
-        Task<bool> Delete(int id);
+        Task<bool> Delete(Apartment apartment);
         Task<IList<Apartment>> GetAll();
     }
 }

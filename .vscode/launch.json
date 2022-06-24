@@ -1,0 +1,33 @@
+{
+    // Use IntelliSense to find out which attributes exist for C# debugging
+    // Use hover for the description of the existing attributes
+    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "MyCondominium API (Office)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildapi-mycondominium",
+            "program": "${workspaceFolder}/src/Avanade.Challenge.MyCondominium.API/bin/Debug/net6.0/Avanade.Challenge.MyCondominium.API.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Avanade.Challenge.MyCondominium.API",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "launchBrowser": {
+                "enabled": false,
+                "args": "${auto-detect-url}",
+                "windows": {
+                    "command": "cmd.exe",
+                    "args": "/C start ${auto-detect-url}"
+                },
+                "osx": {
+                    "command": "open"
+                },
+                "linux": {
+                    "command": "xdg-open"
+                }
+            }
+        }
+    ]
+}

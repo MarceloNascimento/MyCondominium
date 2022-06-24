@@ -4,9 +4,9 @@ namespace Avanade.Challenge.MyCondominium.Domain.Repositories
 {
     public interface IPersonRepository
     {
-        Task<Person> Insert(Person Person);
-        Task<Person> Update(Person Person);
-        Task<bool> Delete(int id);
         Task<IList<Person>> GetAll();
+        Task<Person> Insert(Person person);
+        Task<Person> Update(Person person);
+        Task<bool> Delete(Person person);        
     }
 }

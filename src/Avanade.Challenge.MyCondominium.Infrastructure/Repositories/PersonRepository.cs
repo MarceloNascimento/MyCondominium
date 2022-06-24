@@ -1,29 +1,50 @@
 ﻿
 using Avanade.Challenge.MyCondominium.Domain.Repositories;
 using Avanade.Challenge.MyCondominium.Domain.Entities;
+using Avanade.Challenge.MyCondominium.Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Avanade.Challenge.MyCondominium.Infra.Data.Repositories
 {
     public class PersonRepository : IPersonRepository
     {
-        public Task<bool> Delete(int id)
+        private DataContext _context { get; set; }
+
+        public PersonRepository(DataContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public async Task<IList<Person>> GetAll()
+        {
+            var entities = this._context.People.ToListAsync();
+            return await entities;
         }
 
-        public Task<IList<Person>> GetAll()
+        public async Task<Person> Insert(Person person)
         {
-            throw new NotImplementedException();
+            var personTask = this._context.People.AddAsync(person);
+            var result = this._context.SaveChangesAsync();
+
+            var entity = await personTask;
+            await result;
+
+            return entity.Entity;
         }
 
-        public Task<Person> Insert(Person Person)
+        public async Task<Person> Update(Person person)
         {
-            throw new NotImplementedException();
+            var entity = this._context.People.Update(person).Entity;
+            this._context.SaveChanges();
+
+            return await Task.FromResult(entity);
         }
 
-        public Task<Person> Update(Person Person)
+        public async Task<bool> Delete(Person person)
         {
-            throw new NotImplementedException();
+            this._context.People.Remove(person);
+            var result = this._context.SaveChanges();
+
+            return await Task.FromResult(result > 0);
         }
     }
 }
