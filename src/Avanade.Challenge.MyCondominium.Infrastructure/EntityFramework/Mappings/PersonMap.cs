@@ -26,7 +26,7 @@ namespace Avanade.Challenge.MyCondominium.Infra.Data.Mappings
             builder.Property(x => x.CondominiumFee)
                 .HasColumnType("DECIMAL(7,2)");
 
-            builder.Property(x => x.DataAtualizacao)
+            builder.Property(x => x.LastUpdated)
                 .HasColumnType("DATETIME");
         }
     }

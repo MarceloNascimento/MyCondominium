@@ -23,10 +23,10 @@ namespace Avanade.Challenge.MyCondominium.Infra.Data.Mappings
             builder.Property(x => x.Block)
                 .HasColumnType("INT");
 
-            builder.Property(x => x.DataCriacao)
+            builder.Property(x => x.Created)
                 .HasColumnType("DATETIME");
 
-            builder.Property(x => x.DataAtualizacao)
+            builder.Property(x => x.LastUpdated)
                 .HasColumnType("DATETIME");
 
         }

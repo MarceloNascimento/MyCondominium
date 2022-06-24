@@ -4,9 +4,10 @@ namespace Avanade.Challenge.MyCondominium.Domain.Repositories
 {
     public interface IApartmentRepository
     {
+        Task<IList<Apartment>> GetAll();
+        Task<Apartment?> Get(int id);
         Task<Apartment> Insert(Apartment apartment);
         Task<Apartment> Update(Apartment apartment);
-        Task<bool> Delete(Apartment apartment);
-        Task<IList<Apartment>> GetAll();
+        Task<bool> Delete(Apartment apartment);        
     }
 }

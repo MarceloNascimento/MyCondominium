@@ -3,18 +3,15 @@ namespace Avanade.Challenge.MyCondominium.Domain.Entities
 {
     public class BaseEntity
     {
-        protected BaseEntity(
-         DateTime dataAtualizacao)
+        protected BaseEntity()
         {
-            Id = Guid.NewGuid();
-            DataCriacao = DateTime.Now;//new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            DataAtualizacao = dataAtualizacao;
+            LastUpdated = DateTime.Now;
         }
 
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
-        public DateTime DataCriacao { get; set; }
+        public DateTime Created { get; set; }
 
-        public DateTime DataAtualizacao { get; set; }
+        public DateTime? LastUpdated { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using Avanade.Challenge.MyCondominium.Domain.Entities;
 using Avanade.Challenge.MyCondominium.Domain.Repositories;
 
 namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentListAll
@@ -13,7 +14,13 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentListAll
 
         public async Task<bool> Execute(int id)
         {
-            return await this.ApartmentRepository.Delete(id);
+            var apartment = await this.ApartmentRepository.Get(id);
+
+            if (apartment is null) return await Task.FromResult(false);
+
+            var TaskDelete = this.ApartmentRepository.Delete(apartment);
+
+            return await TaskDelete;
         }
     }
 }

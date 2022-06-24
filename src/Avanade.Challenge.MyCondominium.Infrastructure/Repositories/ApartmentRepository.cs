@@ -18,6 +18,12 @@ namespace Avanade.Challenge.MyCondominium.Infra.Data.Repositories
             return await entities;
         }
 
+        public async Task<Apartment?> Get(int id)
+        {
+            var entity = this._context.Apartments.Where(x => x.Id == id).FirstOrDefaultAsync();
+            return await entity;
+        }
+
         public async Task<Apartment> Insert(Apartment apartment)
         {
             var ApartmentTask = this._context.Apartments.AddAsync(apartment);
