@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Avanade.Challenge.MyCondominium.Infra.CrossCutting\Avanade.Challenge.MyCondominium.Infra.CrossCutting.csproj" />
+    <ProjectReference Include="..\Avanade.Challenge.MyCondominium.Infrastructure.CrossCutting\Avanade.Challenge.MyCondominium.Infrastructure.CrossCutting.csproj" />
   </ItemGroup>
 
 </Project>
