@@ -1,25 +1,35 @@
-
 using Avanade.Challenge.MyCondominium.Domain.Entities;
 using Avanade.Challenge.MyCondominium.Domain.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace Avanade.Challenge.MyCondominium.Application.Commands.PersonListAll
 {
-    public class PersonDeleteCommand : Command
+    public class PersonDeleteCommand : DeleteCommand<bool>
     {
         protected readonly IPersonRepository PersonRepository;
-        protected int Id {get;set;}
+        private readonly ILogger _logger;
 
-        public PersonDeleteCommand(IPersonRepository PersonRepository)
+        public PersonDeleteCommand(ILogger logger, IPersonRepository PersonRepository)
         {
+            this._logger = logger;
             this.PersonRepository = PersonRepository;
         }
 
-        public override async Task<bool> Execute()
-        {   
-            var person = await this.PersonRepository.Get(Id);            
-            if(person is null ) return true;
+        public override async Task<bool> Execute(int id)
+        {
+            try
+            {
+                var person = id != 0 ? await this.PersonRepository.Get(id) : null;
+                if (person is null) return await Task.FromResult(false);
 
-            return await this.PersonRepository.Delete(person);
+                var TaskDelete = this.PersonRepository.Delete(person);
+                return await TaskDelete;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Processing request from {nameof(Execute)}", ex.Message);
+                return await Task.FromResult(false);
+            }
         }
     }
 }

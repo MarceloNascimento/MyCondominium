@@ -1,32 +1,34 @@
-
 using Avanade.Challenge.MyCondominium.Domain.Entities;
 using Avanade.Challenge.MyCondominium.Domain.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace Avanade.Challenge.MyCondominium.Application.Commands.PersonListAll
 {
-    public class PersonListAllCommand : ListCommand<IList<Person>>
+    public class PersonSaveOrUpdateCommand : SaveOrUpdateCommand<Person>
     {
         protected readonly IPersonRepository PersonRepository;
         private readonly ILogger _logger;
 
-        public PersonListAllCommand(ILogger logger, IPersonRepository personRepository)
+        public PersonSaveOrUpdateCommand(ILogger logger, IPersonRepository PersonRepository)
         {
             this._logger = logger;
-            this.PersonRepository = personRepository;
+            this.PersonRepository = PersonRepository;
         }
 
-        public override async Task<IList<Person>> Execute()
+        public override async Task<Person?> Execute(Person param)
         {
             try
             {
-                var TaskList = this.PersonRepository.GetAll();
-                return await TaskList;
+                if (param is null) return await Task.FromResult(new Person());
+
+                var TaskSaveOrUpdate = (param.Id != 0) ? this.PersonRepository.Insert(param)
+                 : this.PersonRepository.Update(param);
+                return await TaskSaveOrUpdate;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Processing request from {nameof(Execute)}", ex.Message);
-                return await Task.FromResult(result: new List<Person>());
+                return await Task.FromResult(new Person());
             }
         }
     }
