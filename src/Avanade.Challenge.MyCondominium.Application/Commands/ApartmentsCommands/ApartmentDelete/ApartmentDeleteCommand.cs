@@ -1,4 +1,3 @@
-using Avanade.Challenge.MyCondominium.Domain.Entities;
 using Avanade.Challenge.MyCondominium.Domain.Repositories;
 
 namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentListAll

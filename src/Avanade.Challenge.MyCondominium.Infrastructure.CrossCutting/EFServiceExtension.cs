@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Avanade.Challenge.MyCondominium.Infra.CrossCutting
+namespace Avanade.Challenge.MyCondominium.Infrastructure.CrossCutting
 {
     [ExcludeFromCodeCoverage]
     public static class EFServiceExtension

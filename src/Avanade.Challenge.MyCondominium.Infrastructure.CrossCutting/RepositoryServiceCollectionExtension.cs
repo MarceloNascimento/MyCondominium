@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Avanade.Challenge.MyCondominium.Infra.CrossCutting
+namespace Avanade.Challenge.MyCondominium.Infrastructure.CrossCutting
 {
     [ExcludeFromCodeCoverage]
     public static class RepositoryServiceCollectionExtension
@@ -10,7 +10,7 @@ namespace Avanade.Challenge.MyCondominium.Infra.CrossCutting
         public static IServiceCollection AddRepositories(this IServiceCollection services,
                                                          IConfiguration configuration)
         {
-            //services.AddTransient<IApartmentsWriteRepository, ApartmentsWriteRepository>();
+            services.AddTransient<IApartmentsRepository, ApartmentsRepository>();
             return services;
         }
     }

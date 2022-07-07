@@ -2,7 +2,7 @@
 using Avanade.Challenge.MyCondominium.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Avanade.Challenge.MyCondominium.Infra.Data.Context
+namespace Avanade.Challenge.MyCondominium.Infrastructure.Data.Context
 {
     public class DataContext : DbContext
     {

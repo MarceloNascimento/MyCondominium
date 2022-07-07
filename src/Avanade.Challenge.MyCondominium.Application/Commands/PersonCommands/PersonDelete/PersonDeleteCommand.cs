@@ -4,18 +4,22 @@ using Avanade.Challenge.MyCondominium.Domain.Repositories;
 
 namespace Avanade.Challenge.MyCondominium.Application.Commands.PersonListAll
 {
-    public class PersonDeleteCommand
+    public class PersonDeleteCommand : Command
     {
         protected readonly IPersonRepository PersonRepository;
+        protected int Id {get;set;}
 
         public PersonDeleteCommand(IPersonRepository PersonRepository)
         {
             this.PersonRepository = PersonRepository;
         }
 
-        public async Task<bool> Execute(int id)
-        {
-            return await this.PersonRepository.Delete(id);
+        public override async Task<bool> Execute()
+        {   
+            var person = await this.PersonRepository.Get(Id);            
+            if(person is null ) return true;
+
+            return await this.PersonRepository.Delete(person);
         }
     }
 }

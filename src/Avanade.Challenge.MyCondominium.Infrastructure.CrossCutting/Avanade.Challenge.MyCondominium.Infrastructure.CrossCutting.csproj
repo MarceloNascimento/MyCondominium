@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Avanade.Challenge.MyCondominium.Domain\Avanade.Challenge.MyCondominium.Domain.csproj" />
-    <ProjectReference Include="..\Avanade.Challenge.MyCondominium.Infrastructure\Avanade.Challenge.MyCondominium.Infra.Data.csproj" />
+    <ProjectReference Include="..\Avanade.Challenge.MyCondominium.Infrastructure\Avanade.Challenge.MyCondominium.Infrastructure.Data.csproj" />
   </ItemGroup>
 
 </Project>
