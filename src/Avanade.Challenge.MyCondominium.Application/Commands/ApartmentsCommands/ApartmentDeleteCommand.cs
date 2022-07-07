@@ -1,15 +1,16 @@
 using Microsoft.Extensions.Logging;
 using Avanade.Challenge.MyCondominium.Infrastructure.CrossCutting.Interfaces.Repositories;
 
-namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentListAll
+namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentsCommand
 {
     public class ApartmentDeleteCommand
     {
         private readonly ILogger _logger;
         protected readonly IApartmentRepository ApartmentRepository;
 
-        public ApartmentDeleteCommand(IApartmentRepository apartmentRepository)
+        public ApartmentDeleteCommand(ILogger logger, IApartmentRepository apartmentRepository)
         {
+            _logger = logger;
             this.ApartmentRepository = apartmentRepository;
         }
 
@@ -26,8 +27,8 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentListAll
                 return await TaskDelete;
             }
             catch (Exception ex)
-            {
-                _logger.Error(ex, $"Unexpected error: {ex.Message}", "HIGH", "HIGH");
+            {   
+                _logger.LogError("Processing request from {ApartmentDeleteCommand}", ex.Message);                
                 return await Task.FromResult(false);
             }
         }
