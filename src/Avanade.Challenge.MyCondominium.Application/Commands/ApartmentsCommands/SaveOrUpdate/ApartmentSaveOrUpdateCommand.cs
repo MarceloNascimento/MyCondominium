@@ -1,5 +1,6 @@
 using Avanade.Challenge.MyCondominium.Domain.Entities;
 using Avanade.Challenge.MyCondominium.Domain.Repositories;
+using Avanade.Challenge.MyCondominium.Infrastructure.CrossCutting.Interfaces.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentInsert

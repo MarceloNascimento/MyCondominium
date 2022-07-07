@@ -1,6 +1,8 @@
+using MediatR;
+
 namespace Avanade.Challenge.MyCondominium.API.ViewModels
 {
-    public class ApartmentViewModel
+    public class ApartmentSaveOrUpdateRequest : IRequest<ApartmentViewModel>
     {
         public int Id { get; set; }
         public int Name { get; set; }

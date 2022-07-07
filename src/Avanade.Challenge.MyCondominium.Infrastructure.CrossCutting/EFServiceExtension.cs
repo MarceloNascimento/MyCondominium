@@ -1,4 +1,4 @@
-﻿using Avanade.Challenge.MyCondominium.Infra.Data.Context;
+﻿using Avanade.Challenge.MyCondominium.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -4,7 +4,7 @@ using Avanade.Challenge.MyCondominium.Domain.Entities;
 using Avanade.Challenge.MyCondominium.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace Avanade.Challenge.MyCondominium.Infra.Data.Repositories
+namespace Avanade.Challenge.MyCondominium.Infrastructure.Data.Repositories
 {
     public class PersonRepository : IPersonRepository
     {

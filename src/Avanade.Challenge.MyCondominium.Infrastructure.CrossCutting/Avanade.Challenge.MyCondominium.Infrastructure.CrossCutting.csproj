@@ -12,8 +12,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.6"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />   
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Avanade.Challenge.MyCondominium.Domain\Avanade.Challenge.MyCondominium.Domain.csproj" />
-    <ProjectReference Include="..\Avanade.Challenge.MyCondominium.Infrastructure\Avanade.Challenge.MyCondominium.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\Avanade.Challenge.MyCondominium.Infrastructure.Data\Avanade.Challenge.MyCondominium.Infrastructure.Data.csproj" />
   </ItemGroup>
 
 </Project>

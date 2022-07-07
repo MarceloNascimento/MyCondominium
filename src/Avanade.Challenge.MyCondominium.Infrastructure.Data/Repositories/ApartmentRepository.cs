@@ -1,54 +1,23 @@
-﻿using Avanade.Challenge.MyCondominium.Domain.Repositories;
-using Avanade.Challenge.MyCondominium.Domain.Entities;
-using Avanade.Challenge.MyCondominium.Infra.Data.Context;
+﻿using Avanade.Challenge.MyCondominium.Domain.Entities;
+using Avanade.Challenge.MyCondominium.Domain.Interfaces.Repositories;
+using Avanade.Challenge.MyCondominium.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
-namespace Avanade.Challenge.MyCondominium.Infra.Data.Repositories
+namespace Avanade.Challenge.MyCondominium.Infrastructure.Data.Repositories
 {
-    public class ApartmentRepository : IApartmentRepository
+    public class ApartmentRepository : GenericRepository<Apartment>
     {
         private DataContext _context { get; set; }
-
-        public ApartmentRepository(DataContext context)
+        public ApartmentRepository(DataContext context) 
+        : base(context: context)
         {
             _context = context;
         }
-        public async Task<IList<Apartment>> GetAll()
-        {
-            var entities = this._context.Apartments.ToListAsync();
-            return await entities;
-        }
-
         public async Task<Apartment?> Get(int id)
         {
-            var entity = this._context.Apartments.Where(x => x.Id == id).FirstOrDefaultAsync();
-            return await entity;
-        }
+            if (id is 0) return null;
 
-        public async Task<Apartment> Insert(Apartment apartment)
-        {
-            var ApartmentTask = this._context.Apartments.AddAsync(apartment);
-            var result = this._context.SaveChangesAsync();
-
-            var entity = await ApartmentTask;
-            await result;
-
-            return entity.Entity;
-        }
-
-        public async Task<Apartment> Update(Apartment apartment)
-        {
-            var entity = this._context.Apartments.Update(apartment).Entity;
-            this._context.SaveChanges();
-
-            return await Task.FromResult(entity);
-        }
-
-        public async Task<bool> Delete(Apartment apartment)
-        {
-            this._context.Apartments.Remove(apartment);
-            var result = this._context.SaveChanges();
-
-            return await Task.FromResult(result > 0);
+            var task = _context.Set<Apartment>().FirstOrDefaultAsync(s => s.Id == id);
+            return await task;
         }
     }
 }

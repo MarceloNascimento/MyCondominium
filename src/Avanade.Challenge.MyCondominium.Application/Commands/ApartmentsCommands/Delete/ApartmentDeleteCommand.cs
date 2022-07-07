@@ -1,10 +1,11 @@
-using Avanade.Challenge.MyCondominium.Domain.Entities;
 using Microsoft.Extensions.Logging;
 using Avanade.Challenge.MyCondominium.Infrastructure.CrossCutting.Interfaces.Repositories;
+using Avanade.Challenge.MyCondominium.API.ViewModels;
+using MediatR;
 
 namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentsCommand
 {
-    public class ApartmentDeleteCommand : DeleteCommand<bool>
+    public class ApartmentDeleteCommand : IRequestHandler<ApartmentDeleteRequest, ApartmentDeletedViewModel>
     {
         protected readonly IApartmentRepository ApartmentRepository;
         private readonly ILogger _logger;
@@ -15,20 +16,20 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentsCommand
             this.ApartmentRepository = apartmentRepository;
         }
 
-        public override async Task<bool> Execute(int id)
+        public async Task<ApartmentDeletedViewModel> IHandle(ApartmentDeleteRequest request, CancellationToken cancellationToken)
         {
             try
             {
-                var apartment = id != 0 ? await this.ApartmentRepository.Get(id) : null;
-                if (apartment is null) return await Task.FromResult(false);
+                var apartment = request.Id != 0 ? await this.ApartmentRepository.Get(request.Id) : null;
+                if (apartment is null) return await Task.FromResult(new ApartmentDeletedViewModel());
 
                 var TaskDelete = this.ApartmentRepository.Delete(apartment);
                 return await TaskDelete;
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Processing request from {nameof(Execute)}", ex.Message);
-                return await Task.FromResult(false);
+                _logger.LogError($"Processing request from {nameof(IHandle)}", ex.Message);
+                return return await Task.FromResult(new ApartmentDeletedViewModel());
             }
         }
     }

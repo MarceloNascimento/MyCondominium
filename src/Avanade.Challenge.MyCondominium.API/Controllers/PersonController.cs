@@ -1,4 +1,5 @@
 using Avanade.Challenge.MyCondominium.API.ViewModels;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Avanade.Challenge.MyCondominium.API.Controllers
@@ -7,19 +8,16 @@ namespace Avanade.Challenge.MyCondominium.API.Controllers
     [Route("[controller]")]
     public class PersonController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
+        private readonly IMediator Mediator;
         private readonly ILogger<PersonController> _logger;
 
-        public PersonController(ILogger<PersonController> logger)
+        public PersonController(IMediator mediator, ILogger<PersonController> logger)
         {
+            Mediator = mediator;
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetPersonViewModel")]
+        [HttpGet(Name = "Get")]
         public IEnumerable<PersonViewModel> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new PersonViewModel
@@ -31,7 +29,7 @@ namespace Avanade.Challenge.MyCondominium.API.Controllers
             .ToArray();
         }
 
-        [HttpPost(Name = "PostPersonViewModel")]
+        [HttpPost(Name = "Post")]
         public IEnumerable<PersonViewModel> Post(PersonViewModel person)
         {
             return Enumerable.Range(1, 5).Select(index => new PersonViewModel
@@ -43,7 +41,7 @@ namespace Avanade.Challenge.MyCondominium.API.Controllers
             .ToArray();
         }
 
-        [HttpPut(Name = "PutPersonViewModel")]
+        [HttpPut(Name = "Put")]
         public IEnumerable<PersonViewModel> Put(PersonViewModel person)
         {
             return Enumerable.Range(1, 5).Select(index => new PersonViewModel
@@ -55,7 +53,7 @@ namespace Avanade.Challenge.MyCondominium.API.Controllers
             .ToArray();
         }
 
-        [HttpDelete(Name = "DeletePersonViewModel")]
+        [HttpDelete(Name = "Delete")]
         public IEnumerable<PersonViewModel> Delete(int id)
         {
             return Enumerable.Range(1, 5).Select(index => new PersonViewModel
