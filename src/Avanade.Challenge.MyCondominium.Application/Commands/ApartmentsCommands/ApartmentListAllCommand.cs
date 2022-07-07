@@ -13,6 +13,7 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentListAll
             this._logger = Logger;
             this.ApartmentRepository = apartmentRepository;
         }
+        
         public async Task<IList<Apartment>> Execute()
         {
             try
