@@ -2,11 +2,11 @@ using MediatR;
 
 namespace Avanade.Challenge.MyCondominium.API.ViewModels
 {
-    public class ApartmentSaveOrUpdateRequest : IRequest<ApartmentViewModel>
+    public class ApartmentSaveOrUpdateRequest : IRequest<ApartmentSaveOrUpdateViewModel>
     {
         public int Id { get; set; }
-        public int Name { get; set; }
-        public int Floor { get; set; }
-        public int Block { get; set; }
+        public string? Name { get; set; }
+        public string? Floor { get; set; }
+        public string? Block { get; set; }
     }
 }

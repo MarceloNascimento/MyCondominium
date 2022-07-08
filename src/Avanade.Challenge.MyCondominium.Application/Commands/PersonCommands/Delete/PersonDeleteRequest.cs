@@ -1,8 +1,7 @@
 using MediatR;
-
 namespace Avanade.Challenge.MyCondominium.API.ViewModels
 {
-    public class ApartmentListAllRequest : IRequest<ApartmentListAllViewModel>
+    public class PersonDeleteRequest : IRequest<PersonDeletedViewModel>
     {
         public int Id { get; set; }
         public int Name { get; set; }

@@ -1,10 +1,11 @@
-using Avanade.Challenge.MyCondominium.Domain.Entities;
-using Avanade.Challenge.MyCondominium.Infrastructure.CrossCutting.Interfaces.Repositories;
 using Microsoft.Extensions.Logging;
+using MediatR;
+using Avanade.Challenge.MyCondominium.API.ViewModels;
+using Avanade.Challenge.MyCondominium.Domain.Interfaces.Repositories;
 
 namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentListAll
 {
-    public class ApartmentListAllCommand : ListCommand<IList<Apartment>>
+    public class ApartmentListAllCommand : IRequestHandler<ApartmentListAllRequest, ApartmentListAllViewModel>
     {
         protected readonly IApartmentRepository ApartmentRepository;
         public ILogger _logger { get; set; }
@@ -15,17 +16,31 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentListAll
             this.ApartmentRepository = apartmentRepository;
         }
 
-        public override async Task<IList<Apartment>> Execute()
+        public async Task<ApartmentListAllViewModel> Handle(ApartmentListAllRequest request, CancellationToken cancellationToken)
         {
             try
             {
-                var TaskList = this.ApartmentRepository.GetAll();
-                return await TaskList;
+                var entitiesTaskList = this.ApartmentRepository.GetAll();                
+                var apartmentsViewModels = new ApartmentListAllViewModel
+                {
+                    ApartmentDTOs = new List<ApartmentListAllDTO>()
+                };
+
+                apartmentsViewModels.ApartmentDTOs = (await entitiesTaskList).Select(item => new ApartmentListAllDTO()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Block = item.Block,
+                    Floor = item.Floor,
+                    Created = item.Created
+                }).ToList();
+
+                return await Task.FromResult(apartmentsViewModels);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Processing request from {nameof(Execute)}", ex.Message);
-                return await Task.FromResult(result: new List<Apartment>());
+                _logger.LogError($"Processing request from {nameof(Handle)}", ex.Message);
+                return await Task.FromResult(result: new ApartmentListAllViewModel());
             }
         }
     }

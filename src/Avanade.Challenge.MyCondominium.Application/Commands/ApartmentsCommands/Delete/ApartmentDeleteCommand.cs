@@ -1,7 +1,8 @@
 using Microsoft.Extensions.Logging;
-using Avanade.Challenge.MyCondominium.Infrastructure.CrossCutting.Interfaces.Repositories;
-using Avanade.Challenge.MyCondominium.API.ViewModels;
 using MediatR;
+using Avanade.Challenge.MyCondominium.API.ViewModels;
+using Avanade.Challenge.MyCondominium.Domain.Entities;
+using Avanade.Challenge.MyCondominium.Domain.Interfaces.Repositories;
 
 namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentsCommand
 {
@@ -16,20 +17,22 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentsCommand
             this.ApartmentRepository = apartmentRepository;
         }
 
-        public async Task<ApartmentDeletedViewModel> IHandle(ApartmentDeleteRequest request, CancellationToken cancellationToken)
+        public async Task<ApartmentDeletedViewModel> Handle(ApartmentDeleteRequest request, CancellationToken cancellationToken)
         {
             try
             {
-                var apartment = request.Id != 0 ? await this.ApartmentRepository.Get(request.Id) : null;
-                if (apartment is null) return await Task.FromResult(new ApartmentDeletedViewModel());
+                if (request is null || request.Id is 0) { return await Task.FromResult(result: new ApartmentDeletedViewModel()); }
 
+                var apartment = request.Id != 0 ? await this.ApartmentRepository.Get(request.Id) : new Apartment();
                 var TaskDelete = this.ApartmentRepository.Delete(apartment);
-                return await TaskDelete;
+
+                return new ApartmentDeletedViewModel() { IsDeleted = await TaskDelete };
+
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Processing request from {nameof(IHandle)}", ex.Message);
-                return return await Task.FromResult(new ApartmentDeletedViewModel());
+                _logger.LogError($"Processing request from {nameof(Handle)}", ex.Message);
+                return await Task.FromResult(new ApartmentDeletedViewModel());
             }
         }
     }

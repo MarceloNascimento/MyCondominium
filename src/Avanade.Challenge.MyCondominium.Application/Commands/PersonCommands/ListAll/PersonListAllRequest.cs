@@ -2,7 +2,7 @@ using MediatR;
 
 namespace Avanade.Challenge.MyCondominium.API.ViewModels
 {
-    public class ApartmentListAllRequest : IRequest<ApartmentListAllViewModel>
+    public class PersonListAllRequest : IRequest<PersonListAllViewModel>
     {
         public int Id { get; set; }
         public int Name { get; set; }
