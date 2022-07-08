@@ -23,10 +23,10 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentListAll
                 var entitiesTaskList = this.ApartmentRepository.GetAll();                
                 var apartmentsViewModels = new ApartmentListAllViewModel
                 {
-                    ApartmentDTOs = new List<ApartmentListAllDTO>()
+                    ApartmentDTOs = new List<ApartmentListAllDto>()
                 };
 
-                apartmentsViewModels.ApartmentDTOs = (await entitiesTaskList).Select(item => new ApartmentListAllDTO()
+                apartmentsViewModels.ApartmentDTOs = (await entitiesTaskList).Select(item => new ApartmentListAllDto()
                 {
                     Id = item.Id,
                     Name = item.Name,

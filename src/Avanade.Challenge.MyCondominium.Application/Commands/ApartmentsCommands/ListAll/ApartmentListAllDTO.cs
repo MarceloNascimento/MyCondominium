@@ -1,6 +1,6 @@
 namespace Avanade.Challenge.MyCondominium.API.ViewModels
 {
-    public class ApartmentListAllDTO
+    public record ApartmentListAllDto
     {
         public int Id { get; set; }
         public string? Name { get; set; }

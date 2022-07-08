@@ -18,51 +18,47 @@ namespace Avanade.Challenge.MyCondominium.API.Controllers
         }
 
         [HttpGet(Name = "Get")]
-        public IEnumerable<PersonViewModel> Get()
+        public async Task<IActionResult> Get(CancellationToken cancellationToken)
         {
-            return Enumerable.Range(1, 5).Select(index => new PersonViewModel
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            _logger.LogInformation($"Processing request from {nameof(Get)}");
+            var request = new PersonListAllRequest() { };
+            var viewModel = await Mediator.Send(request, cancellationToken);
+
+            return Ok(viewModel);
         }
 
         [HttpPost(Name = "Post")]
-        public IEnumerable<PersonViewModel> Post(PersonViewModel person)
+        public async Task<IActionResult> Post(PersonSaveOrUpdateRequest request, CancellationToken cancellationToken)
         {
-            return Enumerable.Range(1, 5).Select(index => new PersonViewModel
+            _logger.LogInformation($"Processing request from {nameof(Post)}");
+            if (request.Id == 0)
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+                var viewModel = await Mediator.Send(request, cancellationToken);
+                return Ok(viewModel);
+            }
+            return BadRequest(request);
         }
 
         [HttpPut(Name = "Put")]
-        public IEnumerable<PersonViewModel> Put(PersonViewModel person)
+        public async Task<IActionResult> Put(PersonSaveOrUpdateRequest request, CancellationToken cancellationToken)
         {
-            return Enumerable.Range(1, 5).Select(index => new PersonViewModel
+            _logger.LogInformation($"Processing request from {nameof(Put)}");
+            if (request.Id > 0)
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+                var viewModel = await Mediator.Send(request, cancellationToken);
+                return Ok(viewModel);
+            }
+
+            return BadRequest(request);
         }
 
         [HttpDelete(Name = "Delete")]
-        public IEnumerable<PersonViewModel> Delete(int id)
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            return Enumerable.Range(1, 5).Select(index => new PersonViewModel
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            _logger.LogInformation($"Processing request from {nameof(Delete)}");
+            var request = new PersonDeletedViewModel(){Id = id};
+            var viewModel = await Mediator.Send(request, cancellationToken);
+            return Ok(viewModel);
         }
     }
 }

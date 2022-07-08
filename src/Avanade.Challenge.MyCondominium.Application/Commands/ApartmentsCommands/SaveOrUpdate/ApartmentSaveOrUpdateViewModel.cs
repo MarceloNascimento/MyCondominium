@@ -1,6 +1,6 @@
 namespace Avanade.Challenge.MyCondominium.API.ViewModels
 {
-    public class ApartmentSaveOrUpdateViewModel
+    public struct ApartmentSaveOrUpdateViewModel
     {
         public int Id { get; set; }
         public string? Name { get; set; }

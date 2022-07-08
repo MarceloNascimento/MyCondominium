@@ -1,7 +1,7 @@
 namespace Avanade.Challenge.MyCondominium.API.ViewModels
 {
-    public class ApartmentListAllViewModel
+    public record ApartmentListAllViewModel
     {
-        public IEnumerable<ApartmentListAllDTO>? ApartmentDTOs { get; set; }        
+        public IEnumerable<ApartmentListAllDto>? ApartmentDTOs { get; set; }        
     }
 }
