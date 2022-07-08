@@ -17,7 +17,8 @@ namespace Avanade.Challenge.MyCondominium.API.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "Get")]
+        [HttpGet]
+        [Route("[action]")]
         public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation($"Processing request from {nameof(GetAsync)}");
@@ -27,7 +28,8 @@ namespace Avanade.Challenge.MyCondominium.API.Controllers
             return Ok(viewModel);
         }
 
-        [HttpPost(Name = "Post")]
+        [HttpPost]
+        [Route("[action]")]
         public async Task<IActionResult> PostAsync(ApartmentSaveOrUpdateRequest request, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"Processing request from {nameof(PostAsync)}");
@@ -39,7 +41,8 @@ namespace Avanade.Challenge.MyCondominium.API.Controllers
             return BadRequest(request);
         }
 
-        [HttpPut(Name = "Put")]
+        [HttpPut]
+        [Route("[action]")]
         public async Task<IActionResult> PutAsync(ApartmentSaveOrUpdateRequest request, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"Processing request from {nameof(PutAsync)}");
@@ -52,7 +55,8 @@ namespace Avanade.Challenge.MyCondominium.API.Controllers
             return BadRequest(request);
         }
 
-        [HttpDelete(Name = "Delete")]
+        [HttpDelete]
+        [Route("[action]")]
         public async Task<IActionResult> DeleteAsync(int id, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"Processing request from {nameof(DeleteAsync)}");
