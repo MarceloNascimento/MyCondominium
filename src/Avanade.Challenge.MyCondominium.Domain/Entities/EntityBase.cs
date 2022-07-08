@@ -1,9 +1,9 @@
 ﻿
 namespace Avanade.Challenge.MyCondominium.Domain.Entities
 {
-    public class BaseEntity
+    public class EntityBase
     {
-        protected BaseEntity()
+        protected EntityBase()
         {
             LastUpdated = DateTime.Now;
         }

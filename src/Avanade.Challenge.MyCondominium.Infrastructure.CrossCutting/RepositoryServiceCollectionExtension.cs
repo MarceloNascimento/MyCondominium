@@ -9,8 +9,7 @@ namespace Avanade.Challenge.MyCondominium.Infrastructure.CrossCutting
     [ExcludeFromCodeCoverage]
     public static class RepositoryServiceCollectionExtension
     {
-        public static IServiceCollection AddRepositories(this IServiceCollection services,
-                                                         IConfiguration configuration)
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddTransient<IApartmentRepository, ApartmentRepository>();
             services.AddTransient<IPersonRepository, PersonRepository>();

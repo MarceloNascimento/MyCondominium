@@ -1,7 +1,7 @@
 ﻿
 namespace Avanade.Challenge.MyCondominium.Domain.Entities
 {
-    public class Person : BaseEntity
+    public class Person : EntityBase
     {
         public Person()
         {

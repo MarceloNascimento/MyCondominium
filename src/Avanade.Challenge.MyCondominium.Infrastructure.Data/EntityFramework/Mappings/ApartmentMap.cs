@@ -21,7 +21,7 @@ namespace Avanade.Challenge.MyCondominium.Infra.Data.Mappings
                 .IsRequired();
 
             builder.Property(x => x.Block)
-                .HasColumnType("INT");
+                .HasColumnType("NVARCHAR(100)");
 
             builder.Property(x => x.Created)
                 .HasColumnType("DATETIME");
