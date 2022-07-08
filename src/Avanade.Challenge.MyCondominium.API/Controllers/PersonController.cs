@@ -18,9 +18,9 @@ namespace Avanade.Challenge.MyCondominium.API.Controllers
         }
 
         [HttpGet(Name = "Get")]
-        public async Task<IActionResult> Get(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Processing request from {nameof(Get)}");
+            _logger.LogInformation($"Processing request from {nameof(GetAsync)}");
             var request = new PersonListAllRequest() { };
             var viewModel = await Mediator.Send(request, cancellationToken);
 
@@ -28,9 +28,9 @@ namespace Avanade.Challenge.MyCondominium.API.Controllers
         }
 
         [HttpPost(Name = "Post")]
-        public async Task<IActionResult> Post(PersonSaveOrUpdateRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> PostAsync(PersonSaveOrUpdateRequest request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Processing request from {nameof(Post)}");
+            _logger.LogInformation($"Processing request from {nameof(PostAsync)}");
             if (request.Id == 0)
             {
                 var viewModel = await Mediator.Send(request, cancellationToken);
@@ -40,9 +40,9 @@ namespace Avanade.Challenge.MyCondominium.API.Controllers
         }
 
         [HttpPut(Name = "Put")]
-        public async Task<IActionResult> Put(PersonSaveOrUpdateRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> PutAsync(PersonSaveOrUpdateRequest request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Processing request from {nameof(Put)}");
+            _logger.LogInformation($"Processing request from {nameof(PutAsync)}");
             if (request.Id > 0)
             {
                 var viewModel = await Mediator.Send(request, cancellationToken);
@@ -53,9 +53,9 @@ namespace Avanade.Challenge.MyCondominium.API.Controllers
         }
 
         [HttpDelete(Name = "Delete")]
-        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Processing request from {nameof(Delete)}");
+            _logger.LogInformation($"Processing request from {nameof(DeleteAsync)}");
             var request = new PersonDeletedViewModel(){Id = id};
             var viewModel = await Mediator.Send(request, cancellationToken);
             return Ok(viewModel);
