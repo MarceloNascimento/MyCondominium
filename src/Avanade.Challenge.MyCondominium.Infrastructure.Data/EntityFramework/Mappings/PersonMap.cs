@@ -20,7 +20,7 @@ namespace Avanade.Challenge.MyCondominium.Infra.Data.Mappings
                 .HasColumnType("NVARCHAR(100)")
                 .IsRequired();
 
-            builder.Property(x => x.isResident)
+            builder.Property(x => x.IsResident)
                 .HasColumnType("BIT");
 
             builder.Property(x => x.CondominiumFee)

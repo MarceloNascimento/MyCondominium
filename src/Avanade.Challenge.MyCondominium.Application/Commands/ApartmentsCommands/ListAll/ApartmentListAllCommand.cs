@@ -20,7 +20,7 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentListAll
         {
             try
             {
-                var entitiesTaskList = this.ApartmentRepository.GetAll();                
+                var entitiesTaskList = this.ApartmentRepository.GetAllAsync(cancellationToken);
                 var apartmentsViewModels = new ApartmentListAllViewModel
                 {
                     ApartmentDTOs = new List<ApartmentListAllDto>()

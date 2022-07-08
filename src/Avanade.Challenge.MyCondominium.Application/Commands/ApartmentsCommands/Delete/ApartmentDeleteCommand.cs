@@ -23,11 +23,13 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentsCommand
             {
                 if (request is null || request.Id is 0) { return await Task.FromResult(result: new ApartmentDeletedViewModel()); }
 
-                var apartment = request.Id != 0 ? await this.ApartmentRepository.Get(request.Id) : new Apartment();
-                var TaskDelete = this.ApartmentRepository.Delete(apartment);
-
-                return new ApartmentDeletedViewModel() { IsDeleted = await TaskDelete };
-
+                var apartment = await this.ApartmentRepository.GetAsync(request.Id, cancellationToken);
+                if (apartment != null)
+                {
+                    var TaskDelete = this.ApartmentRepository.DeleteAsync(apartment, cancellationToken);
+                    return new ApartmentDeletedViewModel() { IsDeleted = await TaskDelete };
+                }
+                return new ApartmentDeletedViewModel() { IsDeleted = false };
             }
             catch (Exception ex)
             {

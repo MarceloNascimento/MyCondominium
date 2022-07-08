@@ -17,17 +17,20 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.PersonListAll
             this.PersonRepository = PersonRepository;
         }
 
-         public async Task<PersonDeletedViewModel> Handle(PersonDeleteRequest request, CancellationToken cancellationToken)
+        public async Task<PersonDeletedViewModel> Handle(PersonDeleteRequest request, CancellationToken cancellationToken)
         {
             try
             {
-                if (request is null || request.Id is 0) { return await Task.FromResult(result: new PersonDeletedViewModel()); }
+                if (request is null || request.Id is 0) { return await Task.FromResult(new PersonDeletedViewModel()); }
 
-                var person = request.Id != 0 ? await this.PersonRepository.Get(request.Id) : new Person();
-                var TaskDelete = this.PersonRepository.Delete(person);
+                var person = await this.PersonRepository.GetAsync(request.Id, cancellationToken);
+                if (person != null)
+                {
+                    var TaskDelete = this.PersonRepository.DeleteAsync(person, cancellationToken);
+                    return new PersonDeletedViewModel() { IsDeleted = await TaskDelete };
+                }
 
-                return new PersonDeletedViewModel() { IsDeleted = await TaskDelete };
-
+                return new PersonDeletedViewModel() { IsDeleted = false };
             }
             catch (Exception ex)
             {

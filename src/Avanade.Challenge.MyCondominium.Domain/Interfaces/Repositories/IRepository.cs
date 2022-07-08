@@ -2,10 +2,10 @@ namespace Avanade.Challenge.MyCondominium.Domain.Interfaces.Repositories
 {
     public interface IRepository<T> where T : class
     {
-        Task<IList<T>> GetAll();
-        Task<T> Get(int id);
-        Task<T> Insert(T param);
-        Task<T> Update(T param);
-        Task<bool> Delete(T param);
+        Task<T?> GetAsync(int id, CancellationToken cancellationToken);
+        Task<IList<T>> GetAllAsync(CancellationToken cancellationToken);        
+        Task<T> InsertAsync(T entity, CancellationToken cancellationToken);
+        Task<T> UpdateAsync(T entity, CancellationToken cancellationToken);
+        Task<bool> DeleteAsync(T entity, CancellationToken cancellationToken);
     }
 }

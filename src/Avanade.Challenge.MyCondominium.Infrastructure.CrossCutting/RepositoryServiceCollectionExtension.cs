@@ -13,6 +13,7 @@ namespace Avanade.Challenge.MyCondominium.Infrastructure.CrossCutting
                                                          IConfiguration configuration)
         {
             services.AddTransient<IApartmentRepository, ApartmentRepository>();
+            services.AddTransient<IPersonRepository, PersonRepository>();
             return services;
         }
     }

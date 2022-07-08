@@ -1,5 +1,4 @@
 using Avanade.Challenge.MyCondominium.API.ViewModels;
-using Avanade.Challenge.MyCondominium.Domain.Entities;
 using Avanade.Challenge.MyCondominium.Domain.Interfaces.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -21,13 +20,13 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.PersonListAll
         {
             try
             {
-                var entitiesTaskList = this.PersonRepository.GetAll();
+                var entitiesTaskList = this.PersonRepository.GetAllAsync(cancellationToken);
                 var PersonsViewModels = new PersonListAllViewModel
                 {
-                    PersonDTOs = new List<PersonListAllDTO>()
+                    PersonDTOs = new List<PersonListAllDto>()
                 };
 
-                PersonsViewModels.PersonDTOs = (await entitiesTaskList).Select(item => new PersonListAllDTO()
+                PersonsViewModels.PersonDTOs = (await entitiesTaskList).Select(item => new PersonListAllDto()
                 {
                     Id = item.Id,
                     Name = item.Name,

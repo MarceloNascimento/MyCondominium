@@ -24,7 +24,7 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.PersonListAll
             {
                 if (request is null) return await Task.FromResult(new PersonSaveOrUpdateViewModel());
 
-                var apartment = await ApartmentRepository.Get(request.ApartmentId);
+                var apartment = await ApartmentRepository.GetAsync(request.ApartmentId, cancellationToken);
                 var entity = new Person()
                 {
                     Id = request.Id,
@@ -37,8 +37,8 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.PersonListAll
                     LastUpdated = DateTime.UtcNow
                 };
 
-                var TaskSaveOrUpdate = (entity.Id != 0) ? this.PersonRepository.Insert(entity)
-                 : this.PersonRepository.Update(entity);
+                var TaskSaveOrUpdate = (entity.Id != 0) ? this.PersonRepository.InsertAsync(entity, cancellationToken)
+                 : this.PersonRepository.UpdateAsync(entity, cancellationToken);
 
                 var result = await TaskSaveOrUpdate;
                 var viewModel = new PersonSaveOrUpdateViewModel()

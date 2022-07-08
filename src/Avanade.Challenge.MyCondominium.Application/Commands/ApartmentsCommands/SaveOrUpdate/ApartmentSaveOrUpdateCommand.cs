@@ -31,9 +31,9 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentInsert
                     Created = DateTime.UtcNow
                 };
 
-                var TaskSaveOrUpdate = (entity.Id != 0) ? this.ApartmentRepository.Insert(entity)
-                 : this.ApartmentRepository.Update(entity);
-               
+                var TaskSaveOrUpdate = (entity.Id != 0) ? this.ApartmentRepository.InsertAsync(entity, cancellationToken)
+                 : this.ApartmentRepository.UpdateAsync(entity, cancellationToken);
+
                 var result = await TaskSaveOrUpdate;
                 var viewModel = new ApartmentSaveOrUpdateViewModel()
                 {
