@@ -11,7 +11,7 @@
             ],
             "problemMatcher": "$msCompile",
             "dependsOn": [
-                "cleanapi-Etf"
+                "cleanapi"
             ]
         },
         {
