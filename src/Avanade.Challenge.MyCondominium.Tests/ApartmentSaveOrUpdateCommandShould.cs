@@ -1,11 +1,11 @@
-﻿using Avanade.Challenge.MyCondominium.Domain.Entities;
-using Avanade.Challenge.MyCondominium.Domain.Interfaces.Repositories;
-using Moq;
+﻿using Moq;
 using Xunit;
 using FluentAssertions;
-using Avanade.Challenge.MyCondominium.Application.Commands.ApartmentInsert;
 using Microsoft.Extensions.Logging;
+using Avanade.Challenge.MyCondominium.Domain.Entities;
+using Avanade.Challenge.MyCondominium.Domain.Interfaces.Repositories;
 using Avanade.Challenge.MyCondominium.API.ViewModels;
+using Avanade.Challenge.MyCondominium.Application.Commands.ApartmentInsert;
 
 namespace Avanade.Challenge.MyCondominium.Tests
 {
