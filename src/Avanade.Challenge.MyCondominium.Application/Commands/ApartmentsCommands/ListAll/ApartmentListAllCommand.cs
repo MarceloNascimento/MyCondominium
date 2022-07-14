@@ -8,11 +8,11 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentListAll
     public class ApartmentListAllCommand : IRequestHandler<ApartmentListAllRequest, ApartmentListAllViewModel>
     {
         protected readonly IApartmentRepository ApartmentRepository;
-        public ILogger _logger { get; set; }
+        protected ILogger _logger { get; set; }
 
-        public ApartmentListAllCommand(ILogger Logger, IApartmentRepository apartmentRepository)
+        public ApartmentListAllCommand(ILogger logger, IApartmentRepository apartmentRepository)
         {
-            this._logger = Logger;
+            this._logger = logger;
             this.ApartmentRepository = apartmentRepository;
         }
 
