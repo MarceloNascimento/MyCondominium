@@ -16,7 +16,8 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentListAll
             this.ApartmentRepository = apartmentRepository;
         }
 
-        public async Task<ApartmentListAllViewModel> Handle(ApartmentListAllRequest request, CancellationToken cancellationToken)
+        public async Task<ApartmentListAllViewModel?> Handle(ApartmentListAllRequest request
+            , CancellationToken cancellationToken)
         {
             try
             {
@@ -26,13 +27,17 @@ namespace Avanade.Challenge.MyCondominium.Application.Commands.ApartmentListAll
                     ApartmentDTOs = new List<ApartmentListAllDto>()
                 };
 
-                apartmentsViewModels.ApartmentDTOs = (await entitiesTaskList).Select(item => new ApartmentListAllDto()
+
+                if (entitiesTaskList == null) return null;
+
+                apartmentsViewModels.ApartmentDTOs = (await entitiesTaskList)
+                    .Select(item => new ApartmentListAllDto()
                 {
                     Id = item.Id,
-                    Name = item.Name,
-                    Block = item.Block,
-                    Floor = item.Floor,
-                    Created = item.Created
+                    Name = item?.Name,
+                    Block = item?.Block,
+                    Floor = item?.Floor,
+                    Created = item?.Created
                 }).ToList();
 
                 return await Task.FromResult(apartmentsViewModels);

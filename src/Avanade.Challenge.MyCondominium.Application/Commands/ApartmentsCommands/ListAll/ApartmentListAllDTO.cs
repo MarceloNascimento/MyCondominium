@@ -6,6 +6,6 @@ namespace Avanade.Challenge.MyCondominium.API.ViewModels
         public string? Name { get; set; }
         public string? Floor { get; set; }
         public string? Block { get; set; }
-        public DateTime Created { get; set; }
+        public DateTime? Created { get; set; }
     }
 }
