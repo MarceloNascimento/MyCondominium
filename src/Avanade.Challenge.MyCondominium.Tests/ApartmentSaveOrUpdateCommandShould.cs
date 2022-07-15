@@ -11,14 +11,14 @@ namespace Avanade.Challenge.MyCondominium.Tests
 {
     public class ApartmentSaveOrUpdateCommandShould
     {
-        private Mock<IApartmentRepository> ApartmentRepository;
+        private Mock<IApartmentRepository> MockApartmentRepository;
         private Mock<ILogger> _logger { get; set; }
 
         public ApartmentSaveOrUpdateCommandShould(ILogger logger
             , IApartmentRepository apartmentRepository)
         {
             this._logger = new Mock<ILogger>();
-            this.ApartmentRepository = new Mock<IApartmentRepository>();
+            this.MockApartmentRepository = new Mock<IApartmentRepository>();
         }
 
         [Fact]
@@ -48,16 +48,16 @@ namespace Avanade.Challenge.MyCondominium.Tests
             };
 
             //Act
-            _ = ApartmentRepository
+            _ = MockApartmentRepository
                         .Setup(x => x.InsertAsync(entity, It.IsAny<CancellationToken>()))
                         .Returns(taskApartment);
 
-            _ = ApartmentRepository
+            _ = MockApartmentRepository
                         .Setup(x => x.UpdateAsync(entity, It.IsAny<CancellationToken>()))
                         .Returns(taskApartment);
 
             var sut = new ApartmentSaveOrUpdateCommand(logger.Object,
-                                            this.ApartmentRepository.Object);
+                                            this.MockApartmentRepository.Object);
 
             var response = sut.Handle(request, It.IsAny<CancellationToken>());
 

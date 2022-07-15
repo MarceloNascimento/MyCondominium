@@ -11,11 +11,11 @@ namespace Avanade.Challenge.MyCondominium.Tests
 {
     public class ApartmentListAllCommandShould
     {
-        protected readonly Mock<IApartmentRepository> ApartmentRepository;
+        protected readonly Mock<IApartmentRepository> MockApartmentRepository;
 
         public ApartmentListAllCommandShould()
         {
-            this.ApartmentRepository = new Mock<IApartmentRepository>();
+            this.MockApartmentRepository = new Mock<IApartmentRepository>();
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace Avanade.Challenge.MyCondominium.Tests
             IList<Apartment>? aparmentList = new List<Apartment>() { apartment };
             var expectedRepositoryList = Task.FromResult(aparmentList);
 
-            var logger = new Mock<ILogger>();
+            var mocklogger = new Mock<ILogger>();
             var request = new ApartmentListAllRequest();
             var taskApartment = new ApartmentListAllViewModel()
             {
@@ -53,11 +53,11 @@ namespace Avanade.Challenge.MyCondominium.Tests
             var expectedResponse = Task.FromResult(taskApartment);
 
             //Act
-            _= ApartmentRepository
+            _= MockApartmentRepository
                            .Setup(x => x.GetAllAsync(It.IsAny<CancellationToken>()))
                            .Returns(expectedRepositoryList);
-
-            var sut = new ApartmentListAllCommand(logger.Object, this.ApartmentRepository.Object);
+            
+            var sut = new ApartmentListAllCommand(mocklogger.Object, this.MockApartmentRepository.Object);
 
             var response = sut.Handle(request, It.IsAny<CancellationToken>());
 
