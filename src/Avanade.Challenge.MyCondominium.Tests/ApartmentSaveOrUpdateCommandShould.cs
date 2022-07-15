@@ -14,8 +14,7 @@ namespace Avanade.Challenge.MyCondominium.Tests
         private Mock<IApartmentRepository> MockApartmentRepository;
         private Mock<ILogger> _logger { get; set; }
 
-        public ApartmentSaveOrUpdateCommandShould(ILogger logger
-            , IApartmentRepository apartmentRepository)
+        public ApartmentSaveOrUpdateCommandShould()
         {
             this._logger = new Mock<ILogger>();
             this.MockApartmentRepository = new Mock<IApartmentRepository>();
@@ -36,34 +35,37 @@ namespace Avanade.Challenge.MyCondominium.Tests
                 Created = createdIn,
                 LastUpdated = createdIn
             };
-
-            Task<Apartment> taskApartment = Task.FromResult(entity);
-            var logger = new Mock<ILogger>();
+                        
+            var mockLogger = new Mock<ILogger>();
             var request = new ApartmentSaveOrUpdateRequest()
             {
                 Id = entity.Id,
-                Name = entity?.Name,
-                Block = entity?.Block,
-                Floor = entity?.Floor
+                Name = entity.Name,
+                Block = entity.Block,
+                Floor = entity.Floor
             };
 
             //Act
-            _ = MockApartmentRepository
+            MockApartmentRepository
                         .Setup(x => x.InsertAsync(entity, It.IsAny<CancellationToken>()))
-                        .Returns(taskApartment);
+                        .ReturnsAsync(entity);
 
-            _ = MockApartmentRepository
+            MockApartmentRepository
                         .Setup(x => x.UpdateAsync(entity, It.IsAny<CancellationToken>()))
-                        .Returns(taskApartment);
+                        .ReturnsAsync(entity);
 
-            var sut = new ApartmentSaveOrUpdateCommand(logger.Object,
+            MockApartmentRepository
+                        .Setup(x => x.GetAsync(It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                        .ReturnsAsync(entity);
+
+            var sut = new ApartmentSaveOrUpdateCommand(mockLogger.Object,
                                             this.MockApartmentRepository.Object);
 
             var response = sut.Handle(request, It.IsAny<CancellationToken>());
 
             //Asserts
-            response.Should().NotBeNull();
-            response.Should().BeOfType(typeof(ApartmentSaveOrUpdateViewModel));
+            response.Result.Should().NotBeNull();
+            response.Result.Should().BeOfType(typeof(ApartmentSaveOrUpdateViewModel));
         }
     }
 }

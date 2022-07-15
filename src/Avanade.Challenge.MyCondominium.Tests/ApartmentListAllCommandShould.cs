@@ -24,21 +24,16 @@ namespace Avanade.Challenge.MyCondominium.Tests
             //Arrange                      
             int apartmentId = 104;
             var createdIn = new DateTime(2022, 07, 14);
-            var apartment = new Apartment()
-            {
-                Id = apartmentId,
-                Name = "104",
-                Floor = "1",
-                Block = "7",
-                Created = createdIn,
-                LastUpdated = createdIn
-            };
+            var apartment = new Mock<Apartment>().Object;            
 
             IList<Apartment>? aparmentList = new List<Apartment>() { apartment };
             var expectedRepositoryList = Task.FromResult(aparmentList);
 
             var mocklogger = new Mock<ILogger>();
             var request = new ApartmentListAllRequest();
+
+            //Act
+                           
             var taskApartment = new ApartmentListAllViewModel()
             {
                 ApartmentDTOs = aparmentList.Select(item => new ApartmentListAllDto()
@@ -50,16 +45,14 @@ namespace Avanade.Challenge.MyCondominium.Tests
                     Created = item?.Created
                 }).ToList()
             };
-            var expectedResponse = Task.FromResult(taskApartment);
-
-            //Act
+                        
             _= MockApartmentRepository
                            .Setup(x => x.GetAllAsync(It.IsAny<CancellationToken>()))
                            .Returns(expectedRepositoryList);
             
-            var sut = new ApartmentListAllCommand(mocklogger.Object, this.MockApartmentRepository.Object);
-
+            var sut = new ApartmentListAllCommand(mocklogger.Object, this.MockApartmentRepository.Object);            
             var response = sut.Handle(request, It.IsAny<CancellationToken>());
+            var expectedResponse = Task.FromResult(taskApartment);
 
             //Asserts
             response.Result.Should().NotBeNull();            
