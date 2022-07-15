@@ -12,6 +12,7 @@
     "omnisharp.enableRoslynAnalyzers": true,
     "cSpell.words": [
         "appsettings",
+        "mocklogger",
         "Xunit"
     ]
 }
