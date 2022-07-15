@@ -53,15 +53,15 @@ namespace Avanade.Challenge.MyCondominium.Tests
             var expectedResponse = Task.FromResult(taskApartment);
 
             //Act
-            var result = ApartmentRepository
+            _= ApartmentRepository
                            .Setup(x => x.GetAllAsync(It.IsAny<CancellationToken>()))
                            .Returns(expectedRepositoryList);
 
-            var apartmentListAllCommand = new ApartmentListAllCommand(logger.Object, this.ApartmentRepository.Object);
+            var sut = new ApartmentListAllCommand(logger.Object, this.ApartmentRepository.Object);
 
-            var response = apartmentListAllCommand.Handle(request, It.IsAny<CancellationToken>());
+            var response = sut.Handle(request, It.IsAny<CancellationToken>());
 
-            //Assert
+            //Asserts
             response.Result.Should().NotBeNull();            
             response.Result.Should().BeAssignableTo(typeof(ApartmentListAllViewModel));
             _ = response.Result.ApartmentDTOs.Should().BeEquivalentTo(expectedResponse.Result.ApartmentDTOs);

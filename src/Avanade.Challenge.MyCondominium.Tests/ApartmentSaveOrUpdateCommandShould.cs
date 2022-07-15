@@ -11,7 +11,7 @@ namespace Avanade.Challenge.MyCondominium.Tests
 {
     public class ApartmentSaveOrUpdateCommandShould
     {
-        private readonly Mock<IApartmentRepository> ApartmentRepository;
+        private Mock<IApartmentRepository> ApartmentRepository;
         private Mock<ILogger> _logger { get; set; }
 
         public ApartmentSaveOrUpdateCommandShould(ILogger logger
@@ -37,7 +37,7 @@ namespace Avanade.Challenge.MyCondominium.Tests
                 LastUpdated = createdIn
             };
 
-            Task<Apartment?> taskApartment = Task.FromResult(entity);
+            Task<Apartment> taskApartment = Task.FromResult(entity);
             var logger = new Mock<ILogger>();
             var request = new ApartmentSaveOrUpdateRequest()
             {
@@ -47,30 +47,23 @@ namespace Avanade.Challenge.MyCondominium.Tests
                 Floor = entity?.Floor
             };
 
-            var apartmentVMResult = new ApartmentSaveOrUpdateViewModel()
-            {
-                Id = entity.Id,
-                Name = entity?.Name,
-                Block = entity?.Block,
-                Floor = entity?.Floor,
-                Created = entity.Created
-            };
-
             //Act
-            var result = ApartmentRepository
-                        .Setup(x => x.GetAsync(apartmentId, It.IsAny<CancellationToken>()))
+            _ = ApartmentRepository
+                        .Setup(x => x.InsertAsync(entity, It.IsAny<CancellationToken>()))
                         .Returns(taskApartment);
 
-            var apartmentSaveOrUpdateCommand = new ApartmentSaveOrUpdateCommand(logger.Object,
+            _ = ApartmentRepository
+                        .Setup(x => x.UpdateAsync(entity, It.IsAny<CancellationToken>()))
+                        .Returns(taskApartment);
+
+            var sut = new ApartmentSaveOrUpdateCommand(logger.Object,
                                             this.ApartmentRepository.Object);
 
-            var response = apartmentSaveOrUpdateCommand.Handle(request, It.IsAny<CancellationToken>());
+            var response = sut.Handle(request, It.IsAny<CancellationToken>());
 
-
-            var apartment = ApartmentRepository.Object.GetAsync(entity.Id, It.IsAny<CancellationToken>()).Result;
-
-            result.Should().NotBeNull();
-            Assert.IsAssignableFrom<Mock<Apartment>>(apartment);
+            //Asserts
+            response.Should().NotBeNull();
+            response.Should().BeOfType(typeof(ApartmentSaveOrUpdateViewModel));
         }
     }
 }
